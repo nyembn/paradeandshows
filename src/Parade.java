@@ -1,20 +1,25 @@
 import java.util.Timer; 
-import java.util.TimerTask; 
+import java.util.TimerTask;
+import java.util.List;
   
 public class Parade extends TimerTask{
 int totalNumberOfParades = 6;
-BlueStudent b;
+private List<BlueStudent> bg;
+//private BlueStudent b;
 public static int i = 0;
-public Parade(BlueStudent b){
-	this.b = b;
+public Parade(List<BlueStudent> b){
+	this.bg = b;
 }
  
     public void run()
     {
-	synchronized(b){
-		b.setParadeDuration(1000);
-		b.incParadeCount();
-		b.notify();
+	for(int i=0; i<bg.size(); i++){
+	synchronized(bg.get(i)){
+
+	bg.get(i).setParadeDuration(1000);
+	(bg.get(i)).incParadeCount();
+		bg.get(i).notify();
+}
 }
 	//signal a waiting student
 	//Parade 1

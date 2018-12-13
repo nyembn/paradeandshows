@@ -1,4 +1,4 @@
-public class BlueStudent implements Runnable{
+public class BlueStudent extends Thread{
 public static long time = System.currentTimeMillis();
 private Parade p;
   private String name;
@@ -30,7 +30,7 @@ System.out.println("["+(System.currentTimeMillis()-time)+"] "+getName()+": "+m);
     this.number = number;
   }
 
-  public String getName(){return name;}
+  public String TName(){return name;}
 
 public void setParadeDuration(long duration){
 	this.paradeDuration = duration;
