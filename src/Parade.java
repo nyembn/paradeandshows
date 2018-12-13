@@ -13,12 +13,15 @@ public Parade(List<BlueStudent> b){
  
     public void run()
     {
+	//ITERATE OVER ALL GROUP AND SIGNAL
 	for(int i=0; i<bg.size(); i++){
 	synchronized(bg.get(i)){
-
+	//create group
+	//GROUP BLOCKS ON SAME OBJECT
 	bg.get(i).setParadeDuration(1000);
 	(bg.get(i)).incParadeCount();
 		bg.get(i).notify();
+	//NOTIFY THE GROUP
 }
 }
 	//signal a waiting student

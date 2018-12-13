@@ -1,4 +1,4 @@
-public class BlueStudent extends Thread{
+public class BlueStudent implements Runnable{
 public static long time = System.currentTimeMillis();
 private Parade p;
   private String name;
@@ -30,7 +30,7 @@ System.out.println("["+(System.currentTimeMillis()-time)+"] "+getName()+": "+m);
     this.number = number;
   }
 
-  public String TName(){return name;}
+  public String getName(){return name;}
 
 public void setParadeDuration(long duration){
 	this.paradeDuration = duration;
@@ -44,6 +44,7 @@ public void setParadeDuration(long duration){
     //join group
 synchronized (this){
 try{
+	//waitING FOR PARADE TO START
 		this.wait();
 }
 catch(InterruptedException ie){}
@@ -56,6 +57,7 @@ try{
 }
 catch(InterruptedException ie){}
 System.out.println(getName() + " is ended parading");
+
     //march in group
   }
 
