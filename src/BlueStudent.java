@@ -6,6 +6,7 @@ private Parade p;
   private int paradeCompleted = 0; //decide where it belongs
   private int showsWatched = 0;
 private long paradeDuration;
+private List<Group> groupList;
   //array of parade time with 3 cells
   //array of shows time with 3 cells
   //Terminate after last show or watched 3 shows did 3 parades
@@ -14,6 +15,19 @@ private long paradeDuration;
   //ParadeGround paradeGround;  //can be in Group
   //Group g;
 //elapsed time
+public joinGroup(){
+	synchronized(Group.groupObject){
+		Iterator<Group> groupIterator = groupIterator.iterator();
+		while(//%%it is nor assigned}
+
+			this.group = group
+Group.groupObject.notify();
+}
+//??what happens afetr assignment
+	//iterate untill null
+	//join first available grop
+	//Group must be synchronized since multiple threads ill try to access
+}
 public void incParadeCount(){
 	this.paradeCompleted++;
 }
@@ -25,9 +39,10 @@ public void msg(String m) {
 System.out.println("["+(System.currentTimeMillis()-time)+"] "+getName()+": "+m);
 }
 
-  BlueStudent(int number){
+  BlueStudent(int number, List<Group> groupList){
     name = ("Blue Student " + String.valueOf(number));
     this.number = number;
+    this.groupList = groupList;
   }
 
   public String getName(){return name;}
@@ -41,11 +56,14 @@ public void setParadeDuration(long duration){
 		//try to sync with parades
 		//try to sync with shows
     //wait for all the students
-    //join group
+    this.joinGroup();
+	//watch shows
 synchronized (this){
 try{
 	//waitING FOR PARADE TO START
-		this.wait();
+synchronized(Group.groupObject){
+		Group.groupObject.wait();
+}
 }
 catch(InterruptedException ie){}
 }

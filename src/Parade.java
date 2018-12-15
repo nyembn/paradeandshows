@@ -13,9 +13,10 @@ public Parade(List<BlueStudent> b){
  
     public void run()
     {
+	//while th group ist in not empty
 	//ITERATE OVER ALL GROUP AND SIGNAL
 	for(int i=0; i<bg.size(); i++){
-	synchronized(bg.get(i)){
+	synchronized(bg.get(i)){//**********
 	//create group
 	//GROUP BLOCKS ON SAME OBJECT
 	bg.get(i).setParadeDuration(1000);
