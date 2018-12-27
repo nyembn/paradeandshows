@@ -1,8 +1,7 @@
 import java.util.List;
 import java.util.Iterator;
-public class BlueStudent implements Runnable{
+public class OrangeStudent implements Runnable{
   public static long time = System.currentTimeMillis();
-  //private Parade p;
   private String name;
   private int number;
   private int paradeCompleted;
@@ -50,7 +49,7 @@ public class BlueStudent implements Runnable{
     Iterator<Group> groupIterator = this.groupList.iterator();
     while(!this.groupAssigned && groupIterator.hasNext()){
       this.groupLock = groupIterator.next();
-      this.groupLock.blueStudentJoinGroup(this);
+      this.groupLock.orangeStudentJoinGroup(this);
     }
     System.out.println(this.getName() + " is in Group -- " + this.inGroup.getGroupNumber());
   }
@@ -58,8 +57,8 @@ public class BlueStudent implements Runnable{
   //iterate untill null
   //join first available grop
   //Group must be synchronized since multiple threads ill try to access
-  BlueStudent(int number, List<Group> groupList){
-    name = ("Blue Student ---- " + String.valueOf(number));
+  OrangeStudent(int number, List<Group> groupList){
+    this. name = ("Orange Student ---- " + String.valueOf(number));
     this.number = number;
     this.groupList = groupList;
     this.paradeCompleted = 0;
@@ -75,7 +74,7 @@ public class BlueStudent implements Runnable{
       //try to sync with parades
       //try to sync with shows
       //wait for all the students
-      / WAIT UNTILL GROUP NOTIFIES TO Parade
+      //WAIT UNTILL GROUP NOTIFIES TO Parade
       while(!this.inGroup.getClearToParade()){
       try{
       this.inGroup.getParadeLock().wait();
@@ -111,7 +110,6 @@ this.groupAssigned = false;
 
 //march in group
 */
-
 }
 
 }

@@ -3,39 +3,40 @@ import java.util.TimerTask;
 import java.util.List;
 import java.util.ArrayList;
 public class MClock{
-  public static MClock obj;
-  public static Group groupObject;
-  private static List<Group> groupList;
+  public static MClock clockObject;
+  //**public static Group groupObject;
+  public static List<Group> groupList;
   public static void main(String[] args) throws InterruptedException
   {
-    int blueStudent = 16, orangeStudent = 7;
+    int blueStudent = 2, orangeStudent = 4;
     int totalStudent = (blueStudent + orangeStudent);
     int numberOfGroups = (totalStudent/3);
 
-    //create group and add to group list
+    // Create group and add to group list
     groupList = new ArrayList<Group>();
-    for(int i=0; i < numberOfGroups; ++){
+    for(int i=1; i < (numberOfGroups+1); i++){
       Group group = new Group(i);
       groupList.add(group);
     }
-    //lock objects
-    obj = new MClock();
-    groupObject = new Group();
+    clockObject = new MClock();
 
-
-    // creating an instance of Timer class
+    // Creating an instance of Timer class
     Timer timer = new Timer();
 
     //create student threads
-    for(int i=1; i < blueStudent; i++){
+    for(int i=1; i < (blueStudent+1); i++){
       BlueStudent b = new BlueStudent(i, groupList);
       new Thread(b).start();
-      groupList.add(b);
-      //%%RANDOM BECAUSE SNACK BREAK
     }
-    //%%wait for parade
-    // creating instances of tasks to be scheduled
-    TimerTask parade = new Parade(group); //%%ENTER AS A GROUP NOT INDIVIDUAL
+
+    for(int i=1; i < (orangeStudent+1); i++){
+      OrangeStudent o = new OrangeStudent(i, groupList);
+      new Thread(o).start();
+    }
+
+    // Creating instances of tasks to be scheduled
+
+    TimerTask parade = new Parade(groupList); //%%notify all waiting groups
     TimerTask show = new Show();//%%then only one group parades at a time
 
     // scheduling the timer instances
@@ -45,17 +46,17 @@ public class MClock{
     // the most recent actual execution of the task
     System.out.println(parade.scheduledExecutionTime());
 
-    synchronized(obj)
+    synchronized(clockObject)
     {
       // wait untill parade and shows are complete
-      obj.wait();
+      clockObject.wait();
     }
 
     //canceling the task assigned
     System.out.println("End of parade: " + parade.cancel());
     // System.out.println("End of show: " + show.cancel());
 
-    // time is still running
+    // timer is still running
     // so need to cancel it
     timer.cancel();
   }
