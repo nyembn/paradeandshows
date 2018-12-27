@@ -8,7 +8,7 @@ public class MClock{
   public static List<Group> groupList;
   public static void main(String[] args) throws InterruptedException
   {
-    int blueStudent = 2, orangeStudent = 4;
+    int blueStudent = 3, orangeStudent = 6;
     int totalStudent = (blueStudent + orangeStudent);
     int numberOfGroups = (totalStudent/3);
 
