@@ -68,7 +68,17 @@ public class OrangeStudent implements Runnable{
 
   }
   public void run(){
+    while(paradeCompleted < 3){
     this.joinGroup();
+    this.inGroup.parade();
+    try{
+      System.out.println(this.getName() + " **** is parading in group **** " + this.inGroup.getGroupNumber());
+      Thread.sleep(paradeDuration);
+    }
+    catch(InterruptedException ie){}
+      paradeCompleted++;
+    }
+
     /*
     while(paradeCompleted < 3 && showsWatched < 4) || time == lastParadeTime){
       //try to sync with parades

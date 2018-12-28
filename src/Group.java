@@ -1,6 +1,7 @@
 import java.util.List;
 import java.util.ArrayList;
 import java.util.Random;
+import java.util.Iterator;
 
 public class Group{
 	private int groupNumber;
@@ -9,7 +10,7 @@ public class Group{
 	private boolean takingStudents;
 	private int studentCount;
 	private boolean clearToParade;
-	private Object paradeLock;
+	//*private Object paradeLock;
 	//*private boolean orangeFilled;
 	private boolean blueStudentFilled;
 
@@ -17,12 +18,6 @@ public class Group{
 	 *Concurrently accessed methods need to be synchronized since
 	 *all student will try to join groups
 	 */
-
-	public synchronized Object getParadeLock(){
-		return this.paradeLock;
-	}
-
-
 	//block untill 3 or last group
 	//create #numstu/3 group objecst
 	//GROUP SHOULD WAIT AFTER A GROUP IS FORMED
@@ -53,11 +48,9 @@ public class Group{
 		return this.takingStudents;
 	}
 
-	/*public void setClearToParade(){
+	public void setClearToParade(){
 		this.clearToParade = true;
-		this.parade();
 	}
-	*/
 
 	public boolean getClearToParade(){
 		return clearToParade;
@@ -89,21 +82,34 @@ public class Group{
 		}
 	}
 
-	/*public void parade(){
+	public synchronized void parade(){
 		// notify waiting students and set takingStudents true
+		while(!clearToParade){
+			try{
+			wait();
+		}
+		catch(InterruptedException ie){}
+		}
+	}
+
+	public synchronized void signalToParade(){
+		this.takingStudents = true;
+		this.blueStudentFilled = false;
+		this.studentCount = 0;
 		this.clearToParade = true;
 		Random rNumber = new Random();
 		int low = 3000;
 		int high = 5000;
 		int sleepTime = rNumber.nextInt(high - low) + low;
-		//serParade time
+		// Set parade duration
 		this.blueStudent.setParadeDuration(sleepTime);
-		for(int i=0; i<this.orangeStudent.size(); i++)
-			this.orangeStudent.get(i).setParadeDuration(sleepTime);
-		//sleep same amount as students
-		this.paradeLock.notifyAll();
-		//sleep same amount as students
-		this.takingStudents = true;
-		this.studentCount = 0;
-	}*/
+
+		Iterator<OrangeStudent> orangeStudentIter = this.orangeStudentList.iterator();
+		while(orangeStudentIter.hasNext()){
+			OrangeStudent os = orangeStudentIter.next();
+			os.setParadeDuration(sleepTime);
+		}
+		notifyAll();
+		//sleep same amount as students?
+	}
 }
