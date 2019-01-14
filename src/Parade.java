@@ -12,6 +12,7 @@ public class Parade extends TimerTask{
   }
 
   public void run(){
+    System.out.println("***********Parade ran ***********" + ++i);
   Iterator<Group> groupIterator = studentGroups.iterator();
   while(groupIterator.hasNext()){
     Group g = groupIterator.next();
@@ -19,7 +20,6 @@ public class Parade extends TimerTask{
     g.signalToParade();
   }
 }
-    System.out.println("Parade ran" + ++i);
     if(i == 6)
     {
       synchronized(MClock.clockObject)
